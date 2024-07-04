@@ -35,25 +35,22 @@ public class RedisConfig {
     @Bean
     @Primary
     public CacheManager cacheManager() {
-        RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration
-                .defaultCacheConfig()
-                .entryTtl(Duration.ofMinutes(30))
-                .disableCachingNullValues()
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
-
-        return RedisCacheManager.builder(redisConnectionFactory()).cacheDefaults(cacheConfiguration).build();
+        return getCacheManager(30L);
     }
 
     @Bean
     public CacheManager cacheManager2() {
+        return getCacheManager(60L);
+    }
+
+    private CacheManager getCacheManager(Long ttl)
+    {
         RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration
                 .defaultCacheConfig()
-                .entryTtl(Duration.ofMinutes(60))
+                .entryTtl(Duration.ofMinutes(ttl))
                 .disableCachingNullValues()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
-
         return RedisCacheManager.builder(redisConnectionFactory()).cacheDefaults(cacheConfiguration).build();
     }
 }
