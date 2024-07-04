@@ -21,14 +21,21 @@ public class UserController {
 
 
     @GetMapping(value="")
-    @Cacheable(value="users", key = "#roleId")
+    @Cacheable(value="users", key = "#roleId",cacheManager = "cacheManager")
     public Map<String, Object> getDetails(@RequestParam Long roleId)
     {
         UserDetailsDto dto = new UserDetailsDto(1, "Halit","Kalaycı", "12345", new AddressDto(new CityDto("Ankara","06"),"abc"));
 
         return roleBasedFieldService.filterFields(dto, roleId);
     }
+    @GetMapping(value="/get2")
+    @Cacheable(value="users2", key = "#roleId",cacheManager = "cacheManager2")
+    public Map<String, Object> getDetails2(@RequestParam Long roleId)
+    {
+        UserDetailsDto dto = new UserDetailsDto(1, "Halit","Kalaycı", "12345", new AddressDto(new CityDto("Ankara","06"),"abc"));
 
+        return roleBasedFieldService.filterFields(dto, roleId);
+    }
 }
 
 // /api/v1/users
