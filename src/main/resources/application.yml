@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: dtoapp
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dto
+    username: postgres
+    password: test
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8085
