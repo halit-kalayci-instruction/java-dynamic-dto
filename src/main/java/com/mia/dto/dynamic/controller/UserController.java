@@ -5,6 +5,7 @@ import com.mia.dto.dynamic.dto.CityDto;
 import com.mia.dto.dynamic.dto.UserDetailsDto;
 import com.mia.dto.dynamic.service.RoleBasedFieldService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ public class UserController {
 
 
     @GetMapping(value="")
+    @Cacheable(value="users", key = "#roleId")
     public Map<String, Object> getDetails(@RequestParam Long roleId)
     {
         UserDetailsDto dto = new UserDetailsDto(1, "Halit","Kalaycı", "12345", new AddressDto(new CityDto("Ankara","06"),"abc"));

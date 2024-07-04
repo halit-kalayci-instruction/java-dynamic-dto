@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/api/user", headers = "API-VERSION=2")
+@RequestMapping(value = "/api/user", headers = {"API-VERSION=2", "API-VERSION=3"})
 @RequiredArgsConstructor
 public class UserV2Controller {
     private final RoleBasedFieldService roleBasedFieldService;
-
 
 
     @GetMapping(value="")
